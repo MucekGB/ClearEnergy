@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="ClearEnergy helps students and households understand energy use, renewable energy and electricity costs.">
+  <title>ClearEnergy | Understand your energy use</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <header class="site-header" id="top">
+    <div class="container nav-wrap">
+      <a class="brand" href="#home" aria-label="ClearEnergy home">
+        <img src="assets/logo.svg" alt="" width="42" height="42">
+        <span>ClearEnergy</span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation">
+        <span class="sr-only">Open navigation menu</span>
+        <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+      </button>
+      <nav id="primary-navigation" class="primary-nav" aria-label="Main navigation">
+        <a href="#home">Home</a>
+        <a href="#energy-tips">Energy Tips</a>
+        <a href="#renewable-energy">Renewable Energy</a>
+        <a href="#calculator">Calculator</a>
+        <a href="#about">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="hero" id="home" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <img class="hero-photo" src="assets/wind-energy-hero.png" alt="Wind turbines across a green countryside landscape">
+        <div class="hero-copy">
+
+          <h1 id="hero-title">USE LESS ENERGY.<br><span>KNOW YOUR COSTS.</span></h1>
+          <p class="hero-text">Energy tips for homes and students. Learn about renewable energy and estimate the cost of using your devices.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#calculator">Try the calculator</a>
+            <a class="button button-secondary" href="#energy-tips">See energy tips</a>
+          </div>
+        </div>
+        <div class="hero-summary" aria-label="ClearEnergy content summary">
+          <div><strong>6</strong><span>practical tips</span><i aria-hidden="true">✓</i></div>
+          <div class="accent"><strong>3</strong><span>renewable sources</span><i aria-hidden="true">↗</i></div>
+          <div><strong>1</strong><span>cost calculator</span><i aria-hidden="true">⚡</i></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="energy-tips" aria-labelledby="tips-title">
+      <div class="container">
+        <div class="section-heading">
+
+          <h2 id="tips-title">Simple energy-saving tips</h2>
+          <p>Six ways to use less energy at home.</p>
+        </div>
+        <div class="tips-grid">
+          <article class="tip-card"><svg class="tip-icon" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 27a10 10 0 1 1 16 0c-3 2-3 4-3 7H19c0-3 0-5-3-7Z"/><path d="M20 39h8M22 43h4M24 2v4M5 12l4 2M39 14l4-2"/></svg><h3>Lights off</h3><p>Turn off the lights when you leave a room.</p></article>
+          <article class="tip-card"><svg class="tip-icon" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 5v18M13 11a17 17 0 1 0 22 0"/></svg><h3>Switch off</h3><p>Turn off unused devices instead of leaving them on standby, when safe.</p></article>
+          <article class="tip-card"><svg class="tip-icon" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 27a10 10 0 1 1 16 0c-3 2-3 4-3 7H19c0-3 0-5-3-7Z"/><path d="M20 39h8M24 15l-4 8h8l-4 8"/></svg><h3>Choose LED</h3><p>Choose an LED when you need a new light bulb.</p></article>
+          <article class="tip-card"><svg class="tip-icon" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="4" width="34" height="40" rx="4"/><circle cx="24" cy="28" r="11"/><path d="M14 28c6-6 14 6 20 0M13 11h2M21 11h12"/></svg><h3>Full loads</h3><p>Wash a full load of clothes, but do not overload the machine.</p></article>
+          <article class="tip-card"><svg class="tip-icon" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 28V10a5 5 0 0 1 10 0v18a9 9 0 1 1-10 0Z"/><path d="M25 17v17M35 12h6M35 20h4"/><circle cx="25" cy="35" r="2"/></svg><h3>Set your heating</h3><p>Use a timer and thermostat to avoid heating more than you need. Keep your home warm enough.</p></article>
+          <article class="tip-card"><svg class="tip-icon" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 38V25M17 38V17M27 38V8M4 43h29"/><circle cx="34" cy="28" r="8"/><path d="m40 34 5 7"/></svg><h3>Compare costs</h3><p>Check the power on a device label. Use the calculator to estimate its cost.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section renewables" id="renewable-energy" aria-labelledby="renewables-title">
+      <div class="container">
+        <div class="section-heading">
+
+          <h2 id="renewables-title">Renewable energy</h2>
+          <p>Electricity from the sun, wind and water.</p>
+        </div>
+        <div class="renewable-grid">
+          <article class="renewable-card">
+            <svg class="energy-icon" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="34" cy="11" r="5"/><path d="M34 1v2M44 11h2M41 4l2-2M24 11h2M7 23h29l5 17H3ZM17 23l-2 17M27 23l2 17M5 31h34M22 40v5M15 45h14"/></svg><h3>Solar</h3>
+            <p>Solar panels turn sunlight into electricity.</p>
+            <dl><div><dt>Advantage</dt><dd>Makes electricity without burning fuel.</dd></div><div><dt>Limitation</dt><dd>Needs daylight. Makes less electricity on cloudy days.</dd></div></dl>
+          </article>
+          <article class="renewable-card">
+            <svg class="energy-icon" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="19" r="3"/><path d="M24 22v23M21 17 6 10c-4-2-3-5 1-4l18 10M26 17l8-13c2-4 5-2 3 2L27 20M24 22l6 17c1 4-2 5-3 1l-5-18M18 45h12"/></svg><h3>Wind</h3>
+            <p>Wind turns turbine blades to make electricity.</p>
+            <dl><div><dt>Advantage</dt><dd>Makes electricity without burning fuel.</dd></div><div><dt>Limitation</dt><dd>Needs enough wind and a suitable location.</dd></div></dl>
+          </article>
+          <article class="renewable-card">
+            <svg class="energy-icon" viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 3S12 16 12 23a12 12 0 0 0 24 0C36 16 24 3 24 3ZM18 23c0 4 2 6 6 6M3 40q5-4 10 0t10 0t10 0t12 0M3 46q5-4 10 0t10 0t10 0t12 0"/></svg><h3>Hydropower</h3>
+            <p>Moving water turns turbines to make electricity.</p>
+            <dl><div><dt>Advantage</dt><dd>Some plants store water to use later.</dd></div><div><dt>Limitation</dt><dd>Dams can affect rivers and wildlife.</dd></div></dl>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section calculator-section" id="calculator" aria-labelledby="calculator-title">
+      <div class="container">
+        <div class="section-heading calculator-heading">
+
+          <h2 id="calculator-title">Electricity cost calculator</h2>
+          <p>Estimate the cost of using one device. This is not your full electricity bill.</p>
+        </div>
+        <noscript><p class="disclaimer">Enable JavaScript to use the calculator. The tips and renewable energy information still work without it.</p></noscript>
+        <div class="calculator-shell">
+          <div class="calculator-inputs">
+            <div class="calculator-step"><span>1</span><div><strong>Enter your values</strong><small>Choose a device, then set its power, time and electricity price.</small></div></div>
+            <div class="field select-field">
+              <label for="appliance">Choose a device</label>
+              <select id="appliance">
+                <option value="10">LED light — 10 W</option>
+                <option value="100" selected>TV — 100 W</option>
+                <option value="65">Laptop — 65 W</option>
+                <option value="2000">Electric heater — 2000 W</option>
+                <option value="custom">Other device</option>
+              </select>
+              <p class="field-note">These power values are examples. Check your device label. Actual power use can change.</p>
+            </div>
+
+            <div class="control-group" data-control="power">
+              <div class="control-label"><label for="power-number">Device power</label><span>1–5000 W</span></div>
+              <div class="range-row"><input id="power-range" type="range" min="1" max="5000" step="1" value="100" aria-label="Device power slider"><div class="number-unit"><input id="power-number" type="number" min="1" max="5000" step="1" value="100"><span>W</span></div></div>
+            </div>
+            <div class="control-group" data-control="hours">
+              <div class="control-label"><label for="hours-number">Hours used per day</label><span>0–24 hours</span></div>
+              <div class="range-row"><input id="hours-range" type="range" min="0" max="24" step="0.5" value="4" aria-label="Hours used per day slider"><div class="number-unit"><input id="hours-number" type="number" min="0" max="24" step="0.5" value="4"><span>hrs</span></div></div>
+            </div>
+            <div class="control-group" data-control="days">
+              <div class="control-label"><label for="days-number">Days used per month</label><span>0–31 days</span></div>
+              <div class="range-row"><input id="days-range" type="range" min="0" max="31" step="1" value="30" aria-label="Days used per month slider"><div class="number-unit"><input id="days-number" type="number" min="0" max="31" step="1" value="30"><span>days</span></div></div>
+            </div>
+            <div class="control-group" data-control="price">
+              <div class="control-label"><label for="price-number">Electricity price</label><span>1–100 p/kWh</span></div>
+              <div class="range-row"><input id="price-range" type="range" min="1" max="100" step="0.1" value="25" aria-label="Electricity price slider"><div class="number-unit"><input id="price-number" type="number" min="1" max="100" step="0.1" value="25"><span>p/kWh</span></div></div>
+              <p class="field-note">25 p/kWh is an example, not a live price. Enter the unit price from your bill.</p>
+            </div>
+            <button class="button reset-button" id="reset-calculator" type="button">Reset calculator</button>
+          </div>
+
+          <div class="calculator-results" aria-live="polite">
+            <div class="calculator-step result-step"><span>2</span><div><strong>See the estimated cost</strong><small>The result updates when you change a value.</small></div></div>
+            <div class="primary-result"><span>Estimated monthly cost</span><strong id="monthly-cost">—</strong></div>
+            <div class="result-grid">
+              <div><span>Energy per day of use</span><strong id="daily-energy">—</strong></div>
+              <div><span>Cost per day of use</span><strong id="daily-cost">—</strong></div>
+              <div><span>Energy per month</span><strong id="monthly-energy">—</strong></div>
+              <div><span>Estimated yearly cost</span><strong id="yearly-cost">—</strong></div>
+            </div>
+            <div class="calculation-example">
+              <h3>How the calculator works</h3>
+              <p>First, we calculate energy use from power and time. Then we multiply energy use by the electricity price.</p>
+              <details class="calculation-details">
+                <summary>Formula and units</summary>
+                <p id="calculation-text"></p>
+                <dl class="unit-guide">
+                  <div><dt>W</dt><dd>Watts: the power of a device. 1,000 W = 1 kW.</dd></div>
+                  <div><dt>kWh</dt><dd>Energy used by a 1 kW device running for 1 hour.</dd></div>
+                  <div><dt>p/kWh</dt><dd>Price in pence for 1 kWh. 100 pence = £1.</dd></div>
+                </dl>
+              </details>
+              <p>Daily figures are for one day of use. Yearly cost = monthly cost × 12, with the same use each month.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="comparison-card">
+          <div class="comparison-copy"><h3>What if you use it less?</h3><p>Choose fewer hours per day to compare the monthly costs.</p></div>
+          <div class="comparison-control">
+            <label for="compare-hours-number">Fewer hours per day</label>
+            <div class="range-row"><input id="compare-hours-range" type="range" min="0" max="4" step="0.5" value="2" aria-label="Fewer hours per day slider"><div class="number-unit"><input id="compare-hours-number" type="number" min="0" max="4" step="0.5" value="2"><span>hrs</span></div></div>
+            <p class="validation-message" id="compare-message" role="status"></p>
+          </div>
+          <div class="comparison-results" aria-live="polite">
+            <div><span>Cost with current hours</span><strong id="current-monthly-cost">—</strong></div>
+            <div><span>Cost with fewer hours</span><strong id="reduced-monthly-cost">—</strong></div>
+            <div class="difference"><span>Estimated difference</span><strong id="cost-difference">—</strong></div>
+          </div>
+        </div>
+        <p class="disclaimer"><strong>Estimates only.</strong> We assume the same power while the device runs. Actual use and costs may vary. Your supplier’s fixed daily charge is not included.</p>
+      </div>
+    </section>
+
+    <section class="section about-section" id="about" aria-labelledby="about-title">
+      <div class="container about-grid">
+        <div class="about-intro">
+
+          <h2 id="about-title">About ClearEnergy</h2>
+          <p>ClearEnergy is a student project for households and students. Our aim is to help people use less energy and understand electricity costs. This energy education supports <strong>SDG 7: Affordable and Clean Energy</strong>.</p>
+          <div class="sdg-badge"><span>7</span><p><strong>Affordable and<br>Clean Energy</strong><small>United Nations Sustainable Development Goal</small></p></div>
+          <details class="sources">
+            <summary>Sources and further reading</summary>
+            <ul>
+              <li><a href="https://sdgs.un.org/goals/goal7">United Nations — Sustainable Development Goal 7</a></li>
+              <li><a href="https://energysavingtrust.org.uk/hub/quick-tips-to-save-energy/">Energy Saving Trust — Energy-saving tips</a></li>
+              <li><a href="https://www.energy.gov/cmei/systems/how-does-solar-work">US Department of Energy — How solar works</a></li>
+              <li><a href="https://www.energy.gov/cmei/systems/how-do-wind-turbines-work">US Department of Energy — How wind turbines work</a></li>
+              <li><a href="https://www.energy.gov/cmei/water/hydropower-basics">US Department of Energy — Hydropower basics</a></li>
+            </ul>
+          </details>
+        </div>
+        <div class="team-panel">
+          <h3>Our team’s planned tasks</h3>
+          <ul class="team-list">
+            <li><span>MM</span><div><strong>Mateusz Karol Mucek</strong><p>Project planning, HTML, CSS and JavaScript</p></div></li>
+            <li><span>MM</span><div><strong>Mubashir Mahboob</strong><p>Colours, page layout and navigation</p></div></li>
+            <li><span>HR</span><div><strong>Haroon Riaz</strong><p>Logo, page sketches (wireframes) and calculator</p></div></li>
+            <li><span>MM</span><div><strong>Mohsin Mahmood</strong><p>Testing, fixes and publishing on GitHub</p></div></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-panel">
+      <div class="footer-main">
+        <div class="footer-intro">
+          <a class="brand" href="#home"><img src="assets/logo.svg" alt="" width="48" height="48"><span>ClearEnergy</span></a>
+          <h2>Use less energy.<br><span>Know your costs.</span></h2>
+          <a class="button button-primary" href="#calculator">Try the calculator</a>
+        </div>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <h3>Explore</h3>
+          <a href="#energy-tips">Energy tips</a>
+          <a href="#renewable-energy">Renewable energy</a>
+          <a href="#calculator">Calculator</a>
+          <a href="#about">Our project</a>
+        </nav>
+        <div class="footer-project">
+          <h3>Student project</h3>
+          <p>Built with HTML, CSS and JavaScript. Created to support SDG 7: Affordable and Clean Energy.</p>
+        </div>
+      </div>
+      <div class="footer-bottom"><span>ClearEnergy · Student project</span><a href="#top">Back to top ↑</a></div>
+    </div>
+  </footer>
+</body>
+</html>
