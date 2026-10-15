@@ -107,7 +107,7 @@
         <noscript><p class="disclaimer">Enable JavaScript to use the calculator. The tips and renewable energy information still work without it.</p></noscript>
         <div class="calculator-shell">
           <div class="calculator-inputs">
-            <div class="calculator-step"><span>1</span><div><strong>Enter your values</strong><small>Choose a device, then set its power, time and electricity price.</small></div></div>
+            <div class="calculator-step"><span>1</span><div><strong>Choose your device</strong><small>Start with an example or choose your own power.</small></div></div>
             <div class="field select-field">
               <label for="appliance">Choose a device</label>
               <select id="appliance">
@@ -117,31 +117,37 @@
                 <option value="2000">Electric heater — 2000 W</option>
                 <option value="custom">Other device</option>
               </select>
-              <p class="field-note">These power values are examples. Check your device label. Actual power use can change.</p>
+              <div class="selected-device" aria-hidden="true">
+                <svg id="device-icon" viewBox="0 0 64 64"></svg>
+                <span id="device-name">TV</span>
+              </div>
+              <p class="field-note">These are examples. Check the power on your device label.</p>
             </div>
+
+            <div class="calculator-step usage-step"><span>2</span><div><strong>Set your usage</strong><small>Move a slider or type a number.</small></div></div>
 
             <div class="control-group" data-control="power">
               <div class="control-label"><label for="power-number">Device power</label><span>1–5000 W</span></div>
               <div class="range-row"><input id="power-range" type="range" min="1" max="5000" step="1" value="100" aria-label="Device power slider"><div class="number-unit"><input id="power-number" type="number" min="1" max="5000" step="1" value="100"><span>W</span></div></div>
             </div>
             <div class="control-group" data-control="hours">
-              <div class="control-label"><label for="hours-number">Hours used per day</label><span>0–24 hours</span></div>
+              <div class="control-label"><label for="hours-number">Hours per day</label><span>0–24 hours</span></div>
               <div class="range-row"><input id="hours-range" type="range" min="0" max="24" step="0.5" value="4" aria-label="Hours used per day slider"><div class="number-unit"><input id="hours-number" type="number" min="0" max="24" step="0.5" value="4"><span>hrs</span></div></div>
             </div>
             <div class="control-group" data-control="days">
-              <div class="control-label"><label for="days-number">Days used per month</label><span>0–31 days</span></div>
+              <div class="control-label"><label for="days-number">Days per month</label><span>0–31 days</span></div>
               <div class="range-row"><input id="days-range" type="range" min="0" max="31" step="1" value="30" aria-label="Days used per month slider"><div class="number-unit"><input id="days-number" type="number" min="0" max="31" step="1" value="30"><span>days</span></div></div>
             </div>
             <div class="control-group" data-control="price">
-              <div class="control-label"><label for="price-number">Electricity price</label><span>1–100 p/kWh</span></div>
+              <div class="control-label"><label for="price-number">Price per kWh</label><span>1–100 p/kWh</span></div>
               <div class="range-row"><input id="price-range" type="range" min="1" max="100" step="0.1" value="25" aria-label="Electricity price slider"><div class="number-unit"><input id="price-number" type="number" min="1" max="100" step="0.1" value="25"><span>p/kWh</span></div></div>
-              <p class="field-note">25 p/kWh is an example, not a live price. Enter the unit price from your bill.</p>
+              <p class="field-note">Find the price per kWh on your electricity bill. 25 p/kWh is only an example.</p>
             </div>
             <button class="button reset-button" id="reset-calculator" type="button">Reset calculator</button>
           </div>
 
           <div class="calculator-results" aria-live="polite">
-            <div class="calculator-step result-step"><span>2</span><div><strong>See the estimated cost</strong><small>The result updates when you change a value.</small></div></div>
+            <div class="calculator-step result-step"><span>3</span><div><strong>See your cost</strong><small>The estimate updates as you change a value.</small></div></div>
             <div class="primary-result"><span>Estimated monthly cost</span><strong id="monthly-cost">—</strong></div>
             <div class="result-grid">
               <div><span>Energy per day of use</span><strong id="daily-energy">—</strong></div>
@@ -174,9 +180,13 @@
             <p class="validation-message" id="compare-message" role="status"></p>
           </div>
           <div class="comparison-results" aria-live="polite">
-            <div><span>Cost with current hours</span><strong id="current-monthly-cost">—</strong></div>
-            <div><span>Cost with fewer hours</span><strong id="reduced-monthly-cost">—</strong></div>
-            <div class="difference"><span>Estimated difference</span><strong id="cost-difference">—</strong></div>
+            <div><span>Current monthly cost</span><strong id="current-monthly-cost">—</strong></div>
+            <div><span>New monthly cost</span><strong id="reduced-monthly-cost">—</strong></div>
+            <div class="difference"><span>Estimated monthly saving</span><strong id="cost-difference">—</strong></div>
+            <div class="comparison-bars" aria-hidden="true">
+              <div><span>Current</span><i><b id="current-cost-bar"></b></i></div>
+              <div><span>New</span><i><b id="new-cost-bar"></b></i></div>
+            </div>
           </div>
         </div>
         <p class="disclaimer"><strong>Estimates only.</strong> We assume the same power while the device runs. Actual use and costs may vary. Your supplier’s fixed daily charge is not included.</p>
@@ -219,8 +229,7 @@
       <div class="footer-main">
         <div class="footer-intro">
           <a class="brand" href="#home"><img src="assets/logo.svg" alt="" width="48" height="48"><span>ClearEnergy</span></a>
-          <h2>Use less energy.<br><span>Know your costs.</span></h2>
-          <a class="button button-primary" href="#calculator">Try the calculator</a>
+          <p>A student project that makes energy use and electricity costs easier to understand.</p>
         </div>
         <nav class="footer-links" aria-label="Footer navigation">
           <h3>Explore</h3>
@@ -239,3 +248,4 @@
   </footer>
 </body>
 </html>
+
