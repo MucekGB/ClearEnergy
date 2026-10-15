@@ -15,6 +15,18 @@ const compareNumber = document.querySelector('#compare-hours-number');
 const compareMessage = document.querySelector('#compare-message');
 const menuButton = document.querySelector('.menu-toggle');
 const navigation = document.querySelector('#primary-navigation');
+const deviceIcon = document.querySelector('#device-icon');
+const deviceName = document.querySelector('#device-name');
+const currentCostBar = document.querySelector('#current-cost-bar');
+const newCostBar = document.querySelector('#new-cost-bar');
+
+const deviceVisuals = {
+  '10': { name: 'LED light', icon: '<path d="M23 39h18M26 46h12"/><path d="M22 31c-5-4-7-8-7-13a17 17 0 0 1 34 0c0 5-2 9-7 13-2 2-3 4-3 8H25c0-4-1-6-3-8Z"/>' },
+  '100': { name: 'TV', icon: '<rect x="8" y="11" width="48" height="33" rx="5"/><path d="M24 53h16M32 44v9"/>' },
+  '65': { name: 'Laptop', icon: '<rect x="13" y="9" width="38" height="31" rx="3"/><path d="M7 48h50l-4 6H11Z"/>' },
+  '2000': { name: 'Electric heater', icon: '<rect x="13" y="8" width="38" height="48" rx="5"/><path d="M23 18c-5 5 5 8 0 14s5 9 0 14M34 18c-5 5 5 8 0 14s5 9 0 14M45 18c-5 5 5 8 0 14s5 9 0 14"/>' },
+  custom: { name: 'Other device', icon: '<rect x="10" y="17" width="44" height="35" rx="6"/><path d="M25 17V9M39 17V9M25 34h14M32 27v14"/>' }
+};
 
 function clamp(value, minimum, maximum, fallback) {
   if (value === '') return fallback;
@@ -50,6 +62,21 @@ function currentValues() {
   };
 }
 
+function setRangeFill(input) {
+  const minimum = Number(input.min);
+  const maximum = Number(input.max);
+  const percentage = maximum === minimum ? 0 : ((Number(input.value) - minimum) / (maximum - minimum)) * 100;
+  input.setAttribute('style', `--fill: ${Math.max(0, Math.min(100, percentage))}%`);
+}
+
+function updateVisuals() {
+  Object.values(controls).forEach((control) => setRangeFill(control.range));
+  setRangeFill(compareRange);
+  const visual = deviceVisuals[applianceSelect.value] || deviceVisuals.custom;
+  deviceIcon.innerHTML = visual.icon;
+  deviceName.textContent = visual.name;
+}
+
 function updateResults() {
   const { power, hours, days, price } = currentValues();
   const priceInPounds = price / 100;
@@ -67,6 +94,7 @@ function updateResults() {
   document.querySelector('#calculation-text').textContent = `(${formatNumber(power, 1)} W ÷ 1,000) × ${formatNumber(hours, 1)} hours × ${days} days × (${formatNumber(price, 1)} p/kWh ÷ 100) = ${formatMoney(monthlyCost)} per month.`;
 
   updateComparison(monthlyCost, power, days, priceInPounds, hours);
+  updateVisuals();
 }
 
 function updateComparison(currentMonthlyCost, power, days, priceInPounds, currentHours) {
@@ -91,6 +119,9 @@ function updateComparison(currentMonthlyCost, power, days, priceInPounds, curren
   document.querySelector('#current-monthly-cost').textContent = formatMoney(currentMonthlyCost);
   document.querySelector('#reduced-monthly-cost').textContent = formatMoney(reducedCost);
   document.querySelector('#cost-difference').textContent = formatMoney(difference);
+  const newWidth = currentMonthlyCost > 0 ? (reducedCost / currentMonthlyCost) * 100 : 0;
+  currentCostBar.setAttribute('style', `width: ${currentMonthlyCost > 0 ? 100 : 0}%`);
+  newCostBar.setAttribute('style', `width: ${Math.max(0, Math.min(100, newWidth))}%`);
 }
 
 Object.values(controls).forEach((control) => {
@@ -118,8 +149,14 @@ applianceSelect.addEventListener('change', () => {
   updateResults();
 });
 
-controls.power.number.addEventListener('input', () => { applianceSelect.value = 'custom'; });
-controls.power.range.addEventListener('input', () => { applianceSelect.value = 'custom'; });
+controls.power.number.addEventListener('input', () => {
+  applianceSelect.value = 'custom';
+  updateVisuals();
+});
+controls.power.range.addEventListener('input', () => {
+  applianceSelect.value = 'custom';
+  updateVisuals();
+});
 
 compareRange.addEventListener('input', () => {
   compareNumber.value = compareRange.value;
@@ -172,3 +209,4 @@ document.addEventListener('keydown', (event) => {
 });
 
 updateResults();
+
