@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 80" role="img" aria-labelledby="title description">
+  <title id="title">ClearEnergy</title>
+  <desc id="description">ClearEnergy wordmark with an energy bolt symbol</desc>
+  <g transform="translate(4 4)">
+    <circle cx="36" cy="36" r="34" fill="#1f2925"/>
+    <circle cx="36" cy="36" r="26" fill="#c8eb61"/>
+    <path d="M43 13 21 39h12l-5 21 23-29H39Z" fill="#1f2925" stroke="#1f2925" stroke-width="1.5" stroke-linejoin="round"/>
+  </g>
+  <g fill="#1f2925" font-family="Aptos Display, Segoe UI, Arial, sans-serif">
+    <text x="91" y="51" font-size="37" font-weight="500" letter-spacing="-1.7">Clear</text>
+    <text x="181" y="51" font-size="37" font-weight="750" letter-spacing="-1.8">Energy</text>
+  </g>
+</svg>

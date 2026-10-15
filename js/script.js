@@ -19,6 +19,48 @@ const deviceIcon = document.querySelector('#device-icon');
 const deviceName = document.querySelector('#device-name');
 const currentCostBar = document.querySelector('#current-cost-bar');
 const newCostBar = document.querySelector('#new-cost-bar');
+const pageDeck = document.querySelector('#main-content');
+const pageTrack = document.querySelector('#page-track');
+const deckPanels = pageTrack.querySelectorAll('.deck-panel');
+const heroNavLinks = navigation.querySelectorAll('[data-slide]');
+const slideButtons = pageDeck.querySelectorAll('[data-go-slide]');
+let currentHeroSlide = 0;
+
+function showHeroSlide(index) {
+  const slideCount = 5;
+  currentHeroSlide = (index + slideCount) % slideCount;
+  pageTrack.setAttribute('style', `transform: translateX(-${currentHeroSlide * 20}%)`);
+
+  deckPanels.forEach((slide, slideIndex) => {
+    const isActive = slideIndex === currentHeroSlide;
+    slide.setAttribute('aria-hidden', String(!isActive));
+    slide.classList.toggle('is-active', isActive);
+  });
+
+  heroNavLinks.forEach((link) => {
+    const isActive = Number(link.getAttribute('data-slide')) === currentHeroSlide;
+    link.classList.toggle('is-active', isActive);
+    if (isActive) link.setAttribute('aria-current', 'page');
+    else link.setAttribute('aria-current', 'false');
+  });
+
+}
+
+heroNavLinks.forEach((link) => {
+  link.addEventListener('click', (event) => {
+    event.preventDefault();
+    showHeroSlide(Number(link.getAttribute('data-slide')));
+  });
+});
+
+slideButtons.forEach((button) => {
+  button.addEventListener('click', () => showHeroSlide(Number(button.getAttribute('data-go-slide'))));
+});
+
+pageDeck.addEventListener('keydown', (event) => {
+  if (event.key === 'ArrowLeft') showHeroSlide(currentHeroSlide - 1);
+  if (event.key === 'ArrowRight') showHeroSlide(currentHeroSlide + 1);
+});
 
 const deviceVisuals = {
   '10': { name: 'LED light', icon: '<path d="M23 39h18M26 46h12"/><path d="M22 31c-5-4-7-8-7-13a17 17 0 0 1 34 0c0 5-2 9-7 13-2 2-3 4-3 8H25c0-4-1-6-3-8Z"/>' },
@@ -208,5 +250,6 @@ document.addEventListener('keydown', (event) => {
   }
 });
 
+showHeroSlide(0);
 updateResults();
 

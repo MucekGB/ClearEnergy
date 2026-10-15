@@ -15,13 +15,14 @@ JavaScript must be enabled for the calculator and mobile menu. No framework, bac
 
 - `index.html` — page content, navigation and labelled calculator controls.
 - `css/style.css` — colours, spacing, cards and responsive layouts.
-- `js/script.js` — menu, input validation and calculator calculations.
-- `assets/` — local SVG logo and hero image; no external image requests.
+- `js/script.js` — hero slider, menu, input validation and calculator calculations.
+- `assets/` — local SVG logo and hero images; no external image requests.
 - `tests/calculator.test.js` — optional development tests, not loaded by the website.
 - `docs/requirements-check.md` — comparison with the supplied course documents.
 
 ## Main features
 
+- Five-slide horizontal hero controlled by the menu, arrows, dots or keyboard.
 - Responsive navigation with a mobile menu.
 - Six practical energy-saving tips.
 - Simple explanations of solar, wind and hydropower.
@@ -30,7 +31,17 @@ JavaScript must be enabled for the calculator and mobile menu. No framework, bac
 - Appliance presets and a custom power option.
 - Current-use and reduced-use cost comparison.
 - Input validation, keyboard support and visible focus styles.
-- About section with the team’s planned responsibilities and links to information sources.
+- About section with the team’s planned tasks and links to information sources.
+
+## Team tasks
+
+These are the planned responsibilities shown on the website:
+
+- **Mubashir Mahboob:** website colours, page layout and navigation menu.
+- **Naqash Mehrban:** logo and wireframes.
+- **Mateusz Karol Mucek:** HTML pages, CSS styling and responsive layouts.
+- **Haroon Riaz:** JavaScript features, electricity cost calculator and usage comparison.
+- **Mohsin Mahmood:** testing, fixes and GitHub publication.
 
 ## Calculator formulas
 
@@ -90,6 +101,6 @@ Manual checks before submission:
 
 The About section links to the UN, Energy Saving Trust and US Department of Energy. These sources support the educational content; they do not provide live electricity prices.
 
-The current hero image was AI-generated and the logo is a local SVG. The team should record any AI assistance according to the course rules and describe its own contributions accurately. The presence of these assets does not demonstrate a Photoshop workflow.
+The five local `bg-*.png` photographic backgrounds were generated with OpenAI ImageGen for this redesign, and the logo is a local SVG. The team should record any AI assistance according to the course rules and describe its own contributions accurately. The presence of these assets does not demonstrate a Photoshop workflow.
 
 The website is only one project output. The logbook, planning evidence, wireframes, browser-test record, GitHub submission, article, presentation and viva are separate tasks. Team responsibilities shown on the page are the plan, not proof that each person completed those tasks. See the requirements check for document differences and submission dates. No GitHub publication was performed as part of this review.

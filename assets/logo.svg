@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
-  <title id="title">ClearEnergy leaf and lightning logo</title>
-  <rect width="64" height="64" rx="18" fill="#e4f5e9"/>
-  <path d="M49 13C32 14 17 21 15 35c-1 8 5 15 13 15 15 0 22-18 21-37Z" fill="#178a4a"/>
-  <path d="M18 48c7-11 14-17 25-24" fill="none" stroke="#0a5230" stroke-width="4" stroke-linecap="round"/>
-  <path d="m36 24-10 15h8l-5 12 14-18h-8l6-9Z" fill="#f3c847"/>
-</svg>
