@@ -81,6 +81,10 @@ function loadCalculator() {
       assert.ok(elements.has(selector), `Missing element: ${selector}`);
       return elements.get(selector);
     },
+    querySelectorAll(selector) {
+      assert.equal(selector, 'input[name="appliance"]');
+      return [...elements.values()].filter((element) => element.attributes.name === 'appliance');
+    },
     addEventListener() {}
   };
   vm.runInNewContext(script, { document }, { filename: 'js/script.js' });
@@ -91,7 +95,14 @@ function loadCalculator() {
       element.value = value;
       element.dispatch(event);
     },
-    reset() { elements.get('#reset-calculator').dispatch('click'); }
+    reset() { elements.get('#reset-calculator').dispatch('click'); },
+    chooseDevice(id) {
+      const radio = elements.get(`#${id}`);
+      for (const element of elements.values()) {
+        if (element.attributes.name === 'appliance') element.checked = element === radio;
+      }
+      radio.dispatch('change');
+    }
   };
 }
 
@@ -164,15 +175,18 @@ test('reset restores the comparison after the available hours drop to zero', () 
   assert.equal(app.get('compare-hours-number').value, '2');
   assert.equal(app.get('monthly-cost').textContent, '£3.00');
   assert.equal(app.get('cost-difference').textContent, '£1.50');
+  assert.equal(app.get('yearly-saving').textContent, '£18.00');
+  assert.equal(app.get('device-tv').checked, true);
 });
 
 test('appliance presets, range inputs and zero/maximum usage update real outputs', () => {
   const app = loadCalculator();
-  app.enter('appliance', '65', 'change');
+  app.chooseDevice('device-laptop');
   assert.equal(app.get('power-number').value, '65');
   assert.equal(app.get('power-range').value, '65');
   app.enter('power-range', '5000');
-  assert.equal(app.get('appliance').value, 'custom');
+  assert.equal(app.get('device-custom').checked, true);
+  assert.equal(app.get('device-laptop').checked, false);
   app.enter('hours-range', '24');
   app.enter('days-range', '31');
   app.enter('price-range', '100');

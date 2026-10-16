@@ -1,7 +1,60 @@
 'use strict';
 
+/* CLEARENERGY – WHAT THE WEBSITE DOES
+   1. Changing pages
+   2. Calculator
+   3. Phone menu */
+
+/* ===== 1. CHANGING PAGES (menu, buttons, arrow keys) ===== */
+
+const SLIDE_COUNT = 5;
+const pageDeck = document.querySelector('#main-content');
+const pageTrack = document.querySelector('#page-track');
+const deckPanels = pageTrack.querySelectorAll('.deck-panel');
+const navigation = document.querySelector('#primary-navigation');
+const navLinks = navigation.querySelectorAll('[data-slide]');
+const slideButtons = pageDeck.querySelectorAll('[data-go-slide]');
+let currentSlide = 0;
+
+// Open page number: 0 Home, 1 Tips, 2 Renewable, 3 Calculator, 4 About
+function showSlide(index) {
+  currentSlide = (index + SLIDE_COUNT) % SLIDE_COUNT;
+  pageTrack.setAttribute('style', `transform: translateX(-${currentSlide * 20}%)`);
+
+  deckPanels.forEach((panel, panelIndex) => {
+    panel.setAttribute('aria-hidden', String(panelIndex !== currentSlide));
+  });
+
+  navLinks.forEach((link) => {
+    const isActive = Number(link.getAttribute('data-slide')) === currentSlide;
+    link.classList.toggle('is-active', isActive);
+    if (isActive) link.setAttribute('aria-current', 'page');
+    else link.removeAttribute('aria-current');
+  });
+}
+
+navLinks.forEach((link) => {
+  link.addEventListener('click', (event) => {
+    event.preventDefault();
+    showSlide(Number(link.getAttribute('data-slide')));
+  });
+});
+
+slideButtons.forEach((button) => {
+  button.addEventListener('click', () => showSlide(Number(button.getAttribute('data-go-slide'))));
+});
+
+pageDeck.addEventListener('keydown', (event) => {
+  if (event.key === 'ArrowLeft') showSlide(currentSlide - 1);
+  if (event.key === 'ArrowRight') showSlide(currentSlide + 1);
+});
+
+/* ===== 2. CALCULATOR ===== */
+
+// Start values (also used by Reset) – change here = change the starting example
 const defaults = { power: 100, hours: 4, days: 30, price: 25, compareHours: 2, appliance: '100' };
 
+// Sliders + number boxes, with min and max
 const controls = {
   power: { range: document.querySelector('#power-range'), number: document.querySelector('#power-number'), min: 1, max: 5000 },
   hours: { range: document.querySelector('#hours-range'), number: document.querySelector('#hours-number'), min: 0, max: 24 },
@@ -9,67 +62,15 @@ const controls = {
   price: { range: document.querySelector('#price-range'), number: document.querySelector('#price-number'), min: 1, max: 100 }
 };
 
-const applianceSelect = document.querySelector('#appliance');
+const deviceRadios = document.querySelectorAll('input[name="appliance"]');
 const compareRange = document.querySelector('#compare-hours-range');
 const compareNumber = document.querySelector('#compare-hours-number');
 const compareMessage = document.querySelector('#compare-message');
-const menuButton = document.querySelector('.menu-toggle');
-const navigation = document.querySelector('#primary-navigation');
-const deviceIcon = document.querySelector('#device-icon');
-const deviceName = document.querySelector('#device-name');
 const currentCostBar = document.querySelector('#current-cost-bar');
 const newCostBar = document.querySelector('#new-cost-bar');
-const pageDeck = document.querySelector('#main-content');
-const pageTrack = document.querySelector('#page-track');
-const deckPanels = pageTrack.querySelectorAll('.deck-panel');
-const heroNavLinks = navigation.querySelectorAll('[data-slide]');
-const slideButtons = pageDeck.querySelectorAll('[data-go-slide]');
-let currentHeroSlide = 0;
+const yearlySaving = document.querySelector('#yearly-saving');
 
-function showHeroSlide(index) {
-  const slideCount = 5;
-  currentHeroSlide = (index + slideCount) % slideCount;
-  pageTrack.setAttribute('style', `transform: translateX(-${currentHeroSlide * 20}%)`);
-
-  deckPanels.forEach((slide, slideIndex) => {
-    const isActive = slideIndex === currentHeroSlide;
-    slide.setAttribute('aria-hidden', String(!isActive));
-    slide.classList.toggle('is-active', isActive);
-  });
-
-  heroNavLinks.forEach((link) => {
-    const isActive = Number(link.getAttribute('data-slide')) === currentHeroSlide;
-    link.classList.toggle('is-active', isActive);
-    if (isActive) link.setAttribute('aria-current', 'page');
-    else link.setAttribute('aria-current', 'false');
-  });
-
-}
-
-heroNavLinks.forEach((link) => {
-  link.addEventListener('click', (event) => {
-    event.preventDefault();
-    showHeroSlide(Number(link.getAttribute('data-slide')));
-  });
-});
-
-slideButtons.forEach((button) => {
-  button.addEventListener('click', () => showHeroSlide(Number(button.getAttribute('data-go-slide'))));
-});
-
-pageDeck.addEventListener('keydown', (event) => {
-  if (event.key === 'ArrowLeft') showHeroSlide(currentHeroSlide - 1);
-  if (event.key === 'ArrowRight') showHeroSlide(currentHeroSlide + 1);
-});
-
-const deviceVisuals = {
-  '10': { name: 'LED light', icon: '<path d="M23 39h18M26 46h12"/><path d="M22 31c-5-4-7-8-7-13a17 17 0 0 1 34 0c0 5-2 9-7 13-2 2-3 4-3 8H25c0-4-1-6-3-8Z"/>' },
-  '100': { name: 'TV', icon: '<rect x="8" y="11" width="48" height="33" rx="5"/><path d="M24 53h16M32 44v9"/>' },
-  '65': { name: 'Laptop', icon: '<rect x="13" y="9" width="38" height="31" rx="3"/><path d="M7 48h50l-4 6H11Z"/>' },
-  '2000': { name: 'Electric heater', icon: '<rect x="13" y="8" width="38" height="48" rx="5"/><path d="M23 18c-5 5 5 8 0 14s5 9 0 14M34 18c-5 5 5 8 0 14s5 9 0 14M45 18c-5 5 5 8 0 14s5 9 0 14"/>' },
-  custom: { name: 'Other device', icon: '<rect x="10" y="17" width="44" height="35" rx="6"/><path d="M25 17V9M39 17V9M25 34h14M32 27v14"/>' }
-};
-
+// Keep a typed number between min and max
 function clamp(value, minimum, maximum, fallback) {
   if (value === '') return fallback;
   const parsedValue = Number(value);
@@ -78,15 +79,14 @@ function clamp(value, minimum, maximum, fallback) {
 }
 
 function syncControl(control, value) {
-  const safeValue = clamp(value, control.min, control.max, Number(control.range.value));
-  control.range.value = safeValue;
-  // The browser rounds to the slider's step. Use that same value in both inputs.
-  // Leave valid text alone so typing a decimal point does not move the cursor.
+  control.range.value = clamp(value, control.min, control.max, Number(control.range.value));
+  // Slider and number box show the same value
   if (control.number.value === '' || Number(control.number.value) !== Number(control.range.value)) {
     control.number.value = control.range.value;
   }
 }
 
+// Number and money format (12.00 and £3.00)
 function formatNumber(value, maximumDecimals = 2) {
   return value.toLocaleString('en-GB', { minimumFractionDigits: Math.min(2, maximumDecimals), maximumFractionDigits: maximumDecimals });
 }
@@ -95,15 +95,7 @@ function formatMoney(value) {
   return value.toLocaleString('en-GB', { style: 'currency', currency: 'GBP', minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
-function currentValues() {
-  return {
-    power: Number(controls.power.range.value),
-    hours: Number(controls.hours.range.value),
-    days: Number(controls.days.range.value),
-    price: Number(controls.price.range.value)
-  };
-}
-
+// Colour the slider up to the circle
 function setRangeFill(input) {
   const minimum = Number(input.min);
   const maximum = Number(input.max);
@@ -111,67 +103,69 @@ function setRangeFill(input) {
   input.setAttribute('style', `--fill: ${Math.max(0, Math.min(100, percentage))}%`);
 }
 
-function updateVisuals() {
-  Object.values(controls).forEach((control) => setRangeFill(control.range));
-  setRangeFill(compareRange);
-  const visual = deviceVisuals[applianceSelect.value] || deviceVisuals.custom;
-  deviceIcon.innerHTML = visual.icon;
-  deviceName.textContent = visual.name;
+// Mark the chosen device tile
+function selectDevice(value) {
+  deviceRadios.forEach((radio) => { radio.checked = radio.value === value; });
 }
 
+// MAIN CALCULATION – cost per day, month and year
 function updateResults() {
-  const { power, hours, days, price } = currentValues();
+  const power = Number(controls.power.range.value);
+  const hours = Number(controls.hours.range.value);
+  const days = Number(controls.days.range.value);
+  const price = Number(controls.price.range.value);
+
   const priceInPounds = price / 100;
   const dailyEnergy = (power / 1000) * hours;
-  const dailyCost = dailyEnergy * priceInPounds;
   const monthlyEnergy = dailyEnergy * days;
   const monthlyCost = monthlyEnergy * priceInPounds;
-  const yearlyCost = monthlyCost * 12;
 
   document.querySelector('#daily-energy').textContent = `${formatNumber(dailyEnergy)} kWh`;
-  document.querySelector('#daily-cost').textContent = formatMoney(dailyCost);
+  document.querySelector('#daily-cost').textContent = formatMoney(dailyEnergy * priceInPounds);
   document.querySelector('#monthly-energy').textContent = `${formatNumber(monthlyEnergy)} kWh`;
   document.querySelector('#monthly-cost').textContent = formatMoney(monthlyCost);
-  document.querySelector('#yearly-cost').textContent = formatMoney(yearlyCost);
+  document.querySelector('#yearly-cost').textContent = formatMoney(monthlyCost * 12);
   document.querySelector('#calculation-text').textContent = `(${formatNumber(power, 1)} W ÷ 1,000) × ${formatNumber(hours, 1)} hours × ${days} days × (${formatNumber(price, 1)} p/kWh ÷ 100) = ${formatMoney(monthlyCost)} per month.`;
 
-  updateComparison(monthlyCost, power, days, priceInPounds, hours);
-  updateVisuals();
+  updateSaving(monthlyCost, power, days, priceInPounds, hours);
+  Object.values(controls).forEach((control) => setRangeFill(control.range));
+  setRangeFill(compareRange);
 }
 
-function updateComparison(currentMonthlyCost, power, days, priceInPounds, currentHours) {
+// SEE YOUR SAVING – cost with fewer hours
+function updateSaving(currentMonthlyCost, power, days, priceInPounds, currentHours) {
+  // New hours cannot be more than current hours
   compareRange.max = currentHours;
   compareNumber.max = currentHours;
   const safeHours = clamp(compareNumber.value, 0, currentHours, Number(compareRange.value));
-
-  if (Number(compareNumber.value) > currentHours) {
-    compareMessage.textContent = `Enter ${currentHours} hours or less.`;
-  } else {
-    compareMessage.textContent = '';
-  }
+  compareMessage.textContent = Number(compareNumber.value) > currentHours ? `Enter ${currentHours} hours or less.` : '';
 
   compareRange.value = safeHours;
   if (compareNumber.value === '' || Number(compareNumber.value) !== Number(compareRange.value)) {
     compareNumber.value = compareRange.value;
   }
-  const compareHours = Number(compareRange.value);
-  const reducedCost = (power / 1000) * compareHours * days * priceInPounds;
+
+  const reducedCost = (power / 1000) * Number(compareRange.value) * days * priceInPounds;
   const difference = Math.max(0, currentMonthlyCost - reducedCost);
 
   document.querySelector('#current-monthly-cost').textContent = formatMoney(currentMonthlyCost);
   document.querySelector('#reduced-monthly-cost').textContent = formatMoney(reducedCost);
   document.querySelector('#cost-difference').textContent = formatMoney(difference);
+  yearlySaving.textContent = formatMoney(difference * 12);
+
   const newWidth = currentMonthlyCost > 0 ? (reducedCost / currentMonthlyCost) * 100 : 0;
   currentCostBar.setAttribute('style', `width: ${currentMonthlyCost > 0 ? 100 : 0}%`);
   newCostBar.setAttribute('style', `width: ${Math.max(0, Math.min(100, newWidth))}%`);
 }
 
+// Move a slider or type a number = new result
 Object.values(controls).forEach((control) => {
   control.range.addEventListener('input', () => {
     control.number.value = control.range.value;
     updateResults();
   });
 
+  // Empty box while typing = wait
   control.number.addEventListener('input', () => {
     if (control.number.value === '') return;
     syncControl(control, control.number.value);
@@ -184,22 +178,20 @@ Object.values(controls).forEach((control) => {
   });
 });
 
-applianceSelect.addEventListener('change', () => {
-  if (applianceSelect.value !== 'custom') {
-    syncControl(controls.power, applianceSelect.value);
-  }
-  updateResults();
+// Click a device tile = its watts go into Power
+deviceRadios.forEach((radio) => {
+  radio.addEventListener('change', () => {
+    if (!radio.checked) return;
+    if (radio.value !== 'custom') syncControl(controls.power, radio.value);
+    updateResults();
+  });
 });
 
-controls.power.number.addEventListener('input', () => {
-  applianceSelect.value = 'custom';
-  updateVisuals();
-});
-controls.power.range.addEventListener('input', () => {
-  applianceSelect.value = 'custom';
-  updateVisuals();
-});
+// Change Power by hand = "Other" tile
+controls.power.number.addEventListener('input', () => selectDevice('custom'));
+controls.power.range.addEventListener('input', () => selectDevice('custom'));
 
+// Saving slider + number box
 compareRange.addEventListener('input', () => {
   compareNumber.value = compareRange.value;
   compareMessage.textContent = '';
@@ -211,45 +203,40 @@ compareNumber.addEventListener('input', () => {
   updateResults();
 });
 
-compareNumber.addEventListener('change', () => {
-  updateResults();
-});
+compareNumber.addEventListener('change', updateResults);
 
+// Reset button = back to start values
 document.querySelector('#reset-calculator').addEventListener('click', () => {
-  applianceSelect.value = defaults.appliance;
-  Object.entries(controls).forEach(([name, control]) => {
-    syncControl(control, defaults[name]);
-  });
-  // updateComparison restores the maximum before setting the comparison slider.
+  selectDevice(defaults.appliance);
+  Object.entries(controls).forEach(([name, control]) => syncControl(control, defaults[name]));
   compareNumber.value = defaults.compareHours;
   compareMessage.textContent = '';
   updateResults();
 });
 
-menuButton.addEventListener('click', () => {
-  const isOpen = menuButton.getAttribute('aria-expanded') === 'true';
-  menuButton.setAttribute('aria-expanded', String(!isOpen));
-  menuButton.querySelector('.sr-only').textContent = isOpen ? 'Open navigation menu' : 'Close navigation menu';
-  navigation.classList.toggle('is-open', !isOpen);
-});
+/* ===== 3. PHONE MENU (☰ button) ===== */
 
-navigation.querySelectorAll('a').forEach((link) => {
-  link.addEventListener('click', () => {
-    navigation.classList.remove('is-open');
-    menuButton.setAttribute('aria-expanded', 'false');
-    menuButton.querySelector('.sr-only').textContent = 'Open navigation menu';
-  });
-});
+const menuButton = document.querySelector('.menu-toggle');
 
+// Open or close the menu
+function setMenuOpen(isOpen) {
+  menuButton.setAttribute('aria-expanded', String(isOpen));
+  menuButton.querySelector('.sr-only').textContent = isOpen ? 'Close navigation menu' : 'Open navigation menu';
+  navigation.classList.toggle('is-open', isOpen);
+}
+
+menuButton.addEventListener('click', () => setMenuOpen(menuButton.getAttribute('aria-expanded') !== 'true'));
+navLinks.forEach((link) => link.addEventListener('click', () => setMenuOpen(false)));
+
+// Esc key = close the menu
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape' && navigation.classList.contains('is-open')) {
-    navigation.classList.remove('is-open');
-    menuButton.setAttribute('aria-expanded', 'false');
-    menuButton.querySelector('.sr-only').textContent = 'Open navigation menu';
+    setMenuOpen(false);
     menuButton.focus();
   }
 });
 
-showHeroSlide(0);
-updateResults();
+/* ===== START: show Home and the first result ===== */
 
+showSlide(0);
+updateResults();
