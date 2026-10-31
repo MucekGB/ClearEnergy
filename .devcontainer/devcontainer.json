@@ -2,6 +2,7 @@
   "name": "ClearEnergy",
   "image": "mcr.microsoft.com/devcontainers/python:1-3.12-bookworm",
   "postCreateCommand": "python -m pip install -r requirements.txt",
+  "postStartCommand": "nohup python -m uvicorn server:app --host 0.0.0.0 --port 4173 > /tmp/clearenergy.log 2>&1 &",
   "forwardPorts": [4173],
   "portsAttributes": {
     "4173": {
