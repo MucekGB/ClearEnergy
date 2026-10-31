@@ -30,10 +30,15 @@ The automatic installation requires Windows and an internet connection. Python i
 2. Select **Code**, then **Codespaces**.
 3. Select **Create codespace on main**.
 4. Wait for the environment to finish preparing.
-5. The ClearEnergy server starts automatically.
-6. If the website does not open automatically, select the **Ports** tab and open the port named **ClearEnergy website**.
+5. In the terminal run:
 
-Codespaces installs Python, FastAPI and uvicorn automatically. It also starts the server again whenever the Codespace starts, so nothing needs to be installed or entered manually on the lab computer.
+   ```bash
+   uvicorn server:app --reload --host 0.0.0.0 --port 4173
+   ```
+
+6. Open the forwarded port named **ClearEnergy website**.
+
+Codespaces installs Python, FastAPI and uvicorn automatically, so nothing needs to be installed on the lab computer.
 
 ## Database and accounts
 
